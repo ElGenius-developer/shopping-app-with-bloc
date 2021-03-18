@@ -1,20 +1,19 @@
-import 'package:bag_app/data/constants/static_data.dart';
-import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
+ import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/custom_text_field.dart';
 import 'package:bag_app/ui/widgets/sign_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sign_button/constants.dart';
 import 'package:sign_button/create_button.dart';
 
 class Login extends StatelessWidget {
-  final _color=StaticData().pinkColor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2F3F4),
+
       appBar: AppBar(
-        backgroundColor:_color,
+        backgroundColor: context.read<ThemeCubit>().defaultColor,
         title: CustomText(
           fontSize: 25,
           text: 'Login',
@@ -32,19 +31,19 @@ class Login extends StatelessWidget {
             children: [
               CustomTextField(
                 type: 'Email',
-                color: _color,
+                color: context.read<ThemeCubit>().defaultColor,
                 icon: Icons.email,
               ),
               CustomTextField(
                 type: 'Password',
-                color: _color,
+                color: context.read<ThemeCubit>().defaultColor,
                 icon: Icons.vpn_key,
                 isPassword: true,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomText(
-                  color: _color,
+                  color: context.read<ThemeCubit>().defaultColor,
                   text: 'Forget Password',
                   fontSize: 22,
                 ),
@@ -58,7 +57,7 @@ class Login extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  customDivider(),
+                  customDivider(context),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: CustomText(
@@ -66,7 +65,7 @@ class Login extends StatelessWidget {
                       fontSize: 15,
                     ),
                   ),
-                  customDivider(),
+                  customDivider(context),
                 ],
               ),
 
@@ -101,7 +100,7 @@ class Login extends StatelessWidget {
                     child: CustomText(
                       fontSize: 22,
                       text: "Register",
-                      color: _color,
+                      color: context.read<ThemeCubit>().defaultColor,
                     ),
                   ),
                 ],
@@ -113,8 +112,8 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget customDivider() => Container(
-      color: Colors.black,
+  Widget customDivider(BuildContext context) => Container(
+      color: Theme.of(context).textSelectionTheme.selectionColor,
       height: 1,
       width: ThemeCubit.mediaQuery.size.width / 3);
 }

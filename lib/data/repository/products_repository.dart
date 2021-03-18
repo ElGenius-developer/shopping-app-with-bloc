@@ -1,42 +1,24 @@
 import 'package:bag_app/data/constants/static_data.dart';
 import 'package:bag_app/data/models/products.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 
 class ProductsRepository {
 
+  final CollectionReference _firestore = FirebaseFirestore.instance.collection('products');
 
-  Future<List<Products>> fetchProducts() async {
-    var _products=<Products>[];
-    try {
-      final response = await Dio().get(StaticData().baseURL,);
-      if (response.statusCode == 200) {
-        response.data.forEach(( element) {
-          _products.add(Products.fromJson(element));
-        });
-      } else {
-        _products = [ Products.error(error: 'error occurs')];
-      }
-    } catch (e, stackTrace) {
-      print('Error $e occurs in : ==> $stackTrace');
-      _products = [Products.error(error: e.toString())];
-    }
-    return _products;
-  }
+
  Future<List<Products>> fetchProductsByCategory(
-     String categoryName,
-     ) async {
+     String categoryName,) async {
    var _products=<Products>[];
-    final String url ='${StaticData().categoriesURL}$categoryName';
-   try {
-     final response = await Dio().get(url);
-     if (response.statusCode == 200) {
-      await response.data.forEach(( element) {
-         _products.add(Products.fromJson(element));
+ try{
+   QuerySnapshot documentSnapshot = await _firestore.doc('categories')
+       .collection(categoryName)
+   /*.where('type' ,isEqualTo:'Pullover' ) add this to sort internal data*/.get();
+   documentSnapshot.docs.forEach((_product) {
+     _products.add(Products.fromJson(_product.data()));
+   });
 
-       });
-     } else {
-       _products = [ Products.error(error: 'error occurs')];
-     }
    } catch (e, stackTrace) {
      print('Error $e occurs in : ==> $stackTrace');
      _products = [Products.error(error: e.toString())];

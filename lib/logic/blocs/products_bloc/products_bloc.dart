@@ -21,10 +21,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     print(event);
     yield ProductsLoadingState();
     try {
-      if (event is FetchProducts) {
-        _products = await _productsRepository.fetchProducts();
-        yield ProductsSuccessState(_products);
-      } else if (event is FetchProductsByCategory) {
+      if (event is FetchProductsByCategory) {
         _products = await _productsRepository
             .fetchProductsByCategory(event.categoryName);
 

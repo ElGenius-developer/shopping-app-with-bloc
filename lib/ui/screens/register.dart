@@ -1,4 +1,4 @@
-import 'package:bag_app/data/constants/static_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/custom_text_field.dart';
@@ -6,12 +6,11 @@ import 'package:bag_app/ui/widgets/sign_button.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatelessWidget {
-  final _color=StaticData().blueColor;
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _color,
+        backgroundColor: context.read<ThemeCubit>().alternativeColor,
         title: CustomText(
           fontSize: 25,
           text: 'Sign Up',
@@ -26,9 +25,9 @@ class Register extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomTextField(type: 'Name', color: _color,icon: Icons.person,),
-              CustomTextField(type: 'Email', color:  _color,icon: Icons.email,),
-              CustomTextField(type: 'Password', color: _color,icon:Icons.vpn_key_rounded,isPassword: true,),
+              CustomTextField(type: 'Name', color: context.read<ThemeCubit>().alternativeColor,icon: Icons.person,),
+              CustomTextField(type: 'Email', color:  context.read<ThemeCubit>().alternativeColor,icon: Icons.email,),
+              CustomTextField(type: 'Password', color: context.read<ThemeCubit>().alternativeColor,icon:Icons.vpn_key_rounded,isPassword: true,),
               SignButton(text: 'SignUp'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +40,7 @@ class Register extends StatelessWidget {
                     //TODO:will add functionality later
                     child: CustomText(
                       text: 'Login',
-                      color: _color,
+                      color: context.read<ThemeCubit>().alternativeColor,
                       fontSize: 21,
                     ),
                   ),

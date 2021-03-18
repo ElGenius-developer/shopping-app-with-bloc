@@ -1,4 +1,4 @@
-// import 'package:bag_app/ui/router/app_arguments.dart';
+
 import 'package:bag_app/ui/screens/authenticate.dart';
 import 'package:bag_app/ui/screens/cart.dart';
 import 'package:bag_app/ui/screens/details.dart';
@@ -46,7 +46,8 @@ switch (routeSettings.name) {
         case '/Login':
         return CupertinoPageRoute(
           builder: (context) => Login(),
-        ); case '/ProductsScreen':
+        );
+        case '/ProductsScreen':
         return CupertinoPageRoute(
           builder: (context) => ProductsScreen(args.index),
         );

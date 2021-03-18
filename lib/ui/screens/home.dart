@@ -5,7 +5,6 @@ import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:bag_app/ui/router/app_arguments.dart';
 import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/internet_widget.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _color = StaticData().pinkColor;
     ThemeCubit.mediaQuery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +21,7 @@ class Home extends StatelessWidget {
             onPressed: () {},
           )
         ],
-        backgroundColor: _color,
+        backgroundColor: context.read<ThemeCubit>().defaultColor,
         title: CustomText(
           fontSize: 25,
           text: 'Categories',
@@ -46,12 +44,15 @@ class Home extends StatelessWidget {
                     padding: EdgeInsets.all(8),
                     width: ThemeCubit.mediaQuery.size.width - 20,
                     height: ThemeCubit.mediaQuery.size.height / 3,
-                    child: ExtendedImage.asset(
-                      "images/${StaticData().categoriesList[index]}.jpeg",
+                    child: Image(
+                      image:  AssetImage(
+                        "images/${StaticData().categoriesList[index]}.jpeg",
+                      ),
                       height: ThemeCubit.mediaQuery.size.height / 3,
                       width: ThemeCubit.mediaQuery.size.width / 2.6,
                       fit: BoxFit.fill,
-                    ),
+
+                    )
                   ),
                   CustomText(
                     text: StaticData()
@@ -73,6 +74,7 @@ class Home extends StatelessWidget {
               childAspectRatio: ThemeCubit.mediaQuery.size.aspectRatio * 1.14),
         ),
       ),
+
     );
   }
 }

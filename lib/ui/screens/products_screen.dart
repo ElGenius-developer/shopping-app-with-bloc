@@ -6,6 +6,7 @@ import 'package:bag_app/ui/widgets/internet_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ProductsScreen extends StatelessWidget {
   final int index;
@@ -13,7 +14,6 @@ class ProductsScreen extends StatelessWidget {
   const ProductsScreen(this.index);
   @override
   Widget build(BuildContext context) {
-    final _color = StaticData().pinkColor;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -22,7 +22,7 @@ class ProductsScreen extends StatelessWidget {
             onPressed: () {},
           ),
         ],
-        backgroundColor: _color,
+        backgroundColor: context.read<ThemeCubit>().defaultColor,
         title: CustomText(
           fontSize: 25,
           text: StaticData().categoriesList[index].replaceRange(0, 1,
@@ -45,33 +45,55 @@ class ProductsScreen extends StatelessWidget {
             );
           } else if (state is ProductsSuccessState) {
             return GridView.builder(
-              itemCount: StaticData().categoriesList.length ?? 0,
-              itemBuilder: (context, index) => Card(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      width: ThemeCubit.mediaQuery.size.width - 20,
-                      height: ThemeCubit.mediaQuery.size.height / 3,
-                      child: Image.network(
-                        state.products[index].image,
-                        height: ThemeCubit.mediaQuery.size.height / 4,
-                        width: ThemeCubit.mediaQuery.size.width / 2.5,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Icon(CupertinoIcons.exclamationmark_triangle),
+              itemCount: state.products.length ?? 0,
+              itemBuilder: (context, index) {
+                if (state.products.isNotEmpty)
+                  return Card(
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
 
+                          padding: EdgeInsets.all(1),
+                          width: ThemeCubit.mediaQuery.size.width - 20,
+                          height: ThemeCubit.mediaQuery.size.height / 3,
+                          child: Image.network(   state.products[index].image,alignment: Alignment.topCenter,
+                          fit: BoxFit.cover,
+                          )
+                    /*      PhotoView(
+                            imageProvider: NetworkImage(
+                              state.products[index].image,
+                            ),
+                            loadingBuilder: (context, event) =>
+                                CupertinoActivityIndicator(),
+
+                            *//*
+                        height: ThemeCubit.mediaQuery.size.height / 4,
+                        width: ThemeCubit.mediaQuery.size.width / 2.5,*//*
+                            errorBuilder: (context, error, stackTrace) =>
+                                Icon(CupertinoIcons.exclamationmark_triangle),
+
+*//*
                         fit: BoxFit.fill,
-                      ),
+*//*
+                          ),*/
+                        ),
+                        CustomText(
+                          text: state.products[index].price.toString() + ' EGP',
+                          fontWeight: FontWeight.bold,
+                        )
+                      ],
                     ),
-                    CustomText(
-                      text: state.products[index].price.toString() + ' \$',
-                      fontWeight: FontWeight.bold,
-                    )
-                  ],
-                ),
-              ),
+                  );
+                else
+                  return Container(
+                    child: CustomText(
+                      text: 'no data',
+                    ),
+                  );
+              },
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio:

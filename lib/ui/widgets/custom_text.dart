@@ -15,7 +15,7 @@ class CustomText extends StatelessWidget {
           fontFamily: 'Akaya',
           fontSize: fontSize??20,
           fontWeight: fontWeight??FontWeight.w500,
-        color: color??Colors.black
+        color: color??Theme.of(context).textSelectionTheme.selectionColor
       ),);
   }
 }
