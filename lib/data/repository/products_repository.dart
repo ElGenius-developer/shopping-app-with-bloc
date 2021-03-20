@@ -5,17 +5,17 @@ import 'package:dio/dio.dart';
 
 class ProductsRepository {
 
-  final CollectionReference _firestore = FirebaseFirestore.instance.collection('products');
+  final CollectionReference _fireStore = FirebaseFirestore.instance.collection('products');
 
 
  Future<List<Products>> fetchProductsByCategory(
      String categoryName,) async {
    var _products=<Products>[];
  try{
-   QuerySnapshot documentSnapshot = await _firestore.doc('categories')
+   QuerySnapshot querySnapshot = await _fireStore.doc('categories')
        .collection(categoryName)
-   /*.where('type' ,isEqualTo:'Pullover' ) add this to sort internal data*/.get();
-   documentSnapshot.docs.forEach((_product) {
+   /*.where('type' ,isEqualTo: 'Sweatshirt' )add this to sort internal data */.get();
+     querySnapshot.docs.forEach((_product) {
      _products.add(Products.fromJson(_product.data()));
    });
 

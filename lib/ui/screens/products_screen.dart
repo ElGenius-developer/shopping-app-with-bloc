@@ -3,10 +3,11 @@ import 'package:bag_app/logic/blocs/products_bloc/products_bloc.dart';
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/internet_widget.dart';
+import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photo_view/photo_view.dart';
 
 class ProductsScreen extends StatelessWidget {
   final int index;
@@ -15,100 +16,112 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
-        backgroundColor: context.read<ThemeCubit>().defaultColor,
-        title: CustomText(
-          fontSize: 25,
-          text: StaticData().categoriesList[index].replaceRange(0, 1,
-              StaticData().categoriesList[index].toUpperCase().substring(0, 1)),
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-        centerTitle: true,
+      appBar: MyCustomAppBar(
+        title: StaticData().categoriesList[index].replaceRange(0, 1,
+            StaticData().categoriesList[index].toUpperCase().substring(0, 1)),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        showTrailing: true,
       ),
       body: InternetWidget(
-        child:
-            BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
-          // print(state.props.first);
-          if (state is ProductsErrorState) {
-            return Container(
-              child: Center(
-                  child: CustomText(
-                text: 'sorry we faced some issues',
-              )),
-            );
-          } else if (state is ProductsSuccessState) {
-            return GridView.builder(
-              itemCount: state.products.length ?? 0,
-              itemBuilder: (context, index) {
-                if (state.products.isNotEmpty)
-                  return Card(
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-
-                          padding: EdgeInsets.all(1),
-                          width: ThemeCubit.mediaQuery.size.width - 20,
-                          height: ThemeCubit.mediaQuery.size.height / 3,
-                          child: Image.network(   state.products[index].image,alignment: Alignment.topCenter,
-                          fit: BoxFit.cover,
-                          )
-                    /*      PhotoView(
-                            imageProvider: NetworkImage(
-                              state.products[index].image,
-                            ),
-                            loadingBuilder: (context, event) =>
-                                CupertinoActivityIndicator(),
-
-                            *//*
-                        height: ThemeCubit.mediaQuery.size.height / 4,
-                        width: ThemeCubit.mediaQuery.size.width / 2.5,*//*
-                            errorBuilder: (context, error, stackTrace) =>
-                                Icon(CupertinoIcons.exclamationmark_triangle),
-
-*//*
-                        fit: BoxFit.fill,
-*//*
-                          ),*/
-                        ),
-                        CustomText(
-                          text: state.products[index].price.toString() + ' EGP',
-                          fontWeight: FontWeight.bold,
-                        )
-                      ],
-                    ),
-                  );
-                else
-                  return Container(
-                    child: CustomText(
-                      text: 'no data',
-                    ),
-                  );
-              },
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              floating: false,
+              pinned: true,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              automaticallyImplyLeading: false,
+              toolbarHeight: ThemeCubit.mediaQuery.size.height / 7.5,
+              title: Container(
+                  height: ThemeCubit.mediaQuery.size.height / 5,
+                  width: double.infinity,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: StaticData()
+                        .typesList[index]
+                        .map((_type) => Center(
+                              child: Card(
+                                color: Colors.redAccent.shade400,
+                                child: Container(
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                    child: CustomText(text: _type)),
+                              ),
+                            ))
+                        .toList(),
+                  )),
+            ),
+            SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                  (context, index) => BlocBuilder<ProductsBloc, ProductsState>(
+                          builder: (context, state) {
+                        if (state is ProductsErrorState) {
+                          return Container(
+                            child: Center(
+                                child: CustomText(
+                              text: 'sorry we faced some issues',
+                            )),
+                          );
+                        } else if (state is ProductsSuccessState) {
+                          if (state.products.isNotEmpty)
+                            return Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Card(
+                                    color: Colors.white,
+                                    child: ExtendedImage(
+                                      image: ExtendedNetworkImageProvider(
+                                        state.products[index].image,
+                                        timeRetry: Duration(seconds: 7),
+                                      ),
+                                      height:
+                                          ThemeCubit.mediaQuery.size.height /
+                                              3.2,
+                                      width: double.infinity,
+                                      enableMemoryCache: true,
+                                      handleLoadingProgress: true,
+                                      enableLoadState: true,
+                                    ),
+                                  ),
+                                  CustomText(
+                                    text:
+                                        state.products[index].price.toString() +
+                                            ' EGP',
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                ],
+                              ),
+                            );
+                          else {
+                            return Container(
+                              child: CustomText(
+                                text: 'no data',
+                              ),
+                            );
+                          }
+                        } else {
+                          // ignore: missing_return
+                          return Container(
+                              color: Colors.white10,
+                              alignment: Alignment.center,
+                              child: CupertinoActivityIndicator(
+                                animating: true,
+                                radius: 25,
+                              ));
+                        }
+                      }),
+                  childCount:
+                      context.watch<ProductsBloc>().products.length ?? 0),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio:
                       ThemeCubit.mediaQuery.size.aspectRatio * 1.2),
-            );
-          } else {
-            return Container(
-                color: Colors.white10,
-                alignment: Alignment.center,
-                child: CupertinoActivityIndicator(
-                  animating: true,
-                  radius: 25,
-                ));
-          }
-        }),
+            ),
+          ],
+        ),
       ),
     );
   }

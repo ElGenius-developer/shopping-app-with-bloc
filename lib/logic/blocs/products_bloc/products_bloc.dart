@@ -14,6 +14,8 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   final _productsRepository = ProductsRepository();
   List<Products> _products = <Products>[];
 
+  List<Products> get products => _products;
+
   @override
   Stream<ProductsState> mapEventToState(
     ProductsEvent event,

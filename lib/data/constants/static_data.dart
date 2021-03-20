@@ -15,9 +15,14 @@ class StaticData {
     "men clothing",
     "women clothing"
   ];
-  final String baseURL = 'https://fakestoreapi.com/products'; //all products
-  final String categoriesURL =
-      'https://fakestoreapi.com/products/category/'; //custom category
+  final typesList =[
+  {'coffee machine', 'speaker', 'laptop', 'smart watches', 'headset', 'digital camera', 'smart tv', 'power bank', 'fitness technology'},
+{'earring & necklaces', 'jewelry accessories', 'rings', 'bracelets', 'eyewear accessories'},
+{'jeans','shirt','pullover','boots','jacket','sneakers','hoodie','sunglasses'},
+    {'bags', 'pants','blouses & shirts','hoodies & sweatshirts','heels','coats','jackets & vests','pullovers','boots'}
+  ];
+
+  //custom category
   final Color pinkColor = Color(0xF8CD265A);
   final Color blueColor = Color(0xE90974C8);
 
@@ -49,7 +54,7 @@ class StaticData {
   );
 ////////Light Theme
 
-  ThemeData lightThemData = ThemeData(
+  ThemeData lightThemData =ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primaryColor: Colors.red,
     canvasColor: Color(0xFFE5E8E8),
@@ -57,7 +62,7 @@ class StaticData {
     backgroundColor: Color(0xffF0F3F4),
     cardColor: Color(0xffEBF5F5),
     shadowColor: Colors.black38,
-    highlightColor: Colors.black54,
+    highlightColor: Colors.white10,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       // selectedItemColor: Colors.black12,
       selectedItemColor: Colors.black,
