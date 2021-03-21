@@ -18,7 +18,7 @@ class AppRoute {
 switch (routeSettings.name) {
       case '/':
         return CupertinoPageRoute(
-          builder: (context) => Authenticate(isLoggedIn: true,),//true if logged false if not
+          builder: (context) => Authenticate(),//true if logged false if not
         );
         case '/Welcoming':
         return CupertinoPageRoute(

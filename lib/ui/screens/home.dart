@@ -67,6 +67,8 @@ class Home extends StatelessWidget {
                     ThemeCubit.mediaQuery.size.aspectRatio * 1.14),
           ),
         ),
+
+
       ),
       isRight: false,
     );

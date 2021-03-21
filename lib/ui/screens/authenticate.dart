@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Authenticate extends StatelessWidget {
   final bool isLoggedIn;
 
-  const Authenticate({Key key, this.isLoggedIn =false}) : super(key: key);
+  const Authenticate({Key key, this.isLoggedIn = true}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     ThemeCubit.mediaQuery = MediaQuery.of(context);

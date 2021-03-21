@@ -23,105 +23,128 @@ class ProductsScreen extends StatelessWidget {
         showTrailing: true,
       ),
       body: InternetWidget(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              floating: false,
-              pinned: true,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              automaticallyImplyLeading: false,
-              toolbarHeight: ThemeCubit.mediaQuery.size.height / 7.5,
-              title: Container(
-                  height: ThemeCubit.mediaQuery.size.height / 5,
-                  width: double.infinity,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: StaticData()
-                        .typesList[index]
-                        .map((_type) => Center(
-                              child: Card(
-                                color: Colors.redAccent.shade400,
-                                child: Container(
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 12),
-                                    child: CustomText(text: _type)),
-                              ),
-                            ))
-                        .toList(),
-                  )),
-            ),
-            SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                  (context, index) => BlocBuilder<ProductsBloc, ProductsState>(
-                          builder: (context, state) {
-                        if (state is ProductsErrorState) {
-                          return Container(
-                            child: Center(
-                                child: CustomText(
-                              text: 'sorry we faced some issues',
-                            )),
-                          );
-                        } else if (state is ProductsSuccessState) {
-                          if (state.products.isNotEmpty)
-                            return Card(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Card(
-                                    color: Colors.white,
-                                    child: ExtendedImage(
-                                      image: ExtendedNetworkImageProvider(
-                                        state.products[index].image,
-                                        timeRetry: Duration(seconds: 7),
-                                      ),
-                                      height:
-                                          ThemeCubit.mediaQuery.size.height /
-                                              3.2,
-                                      width: double.infinity,
-                                      enableMemoryCache: true,
-                                      handleLoadingProgress: true,
-                                      enableLoadState: true,
+        child:
+            BlocBuilder<ProductsBloc, ProductsState>(builder: (context, state) {
+          if (state is ProductsErrorState) {
+            return Container(
+              child: Center(
+                  child: CustomText(
+                text: 'sorry we faced some issues',
+              )),
+            );
+          } else if (state is ProductsSuccessState) {
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  floating: true,
+                  // pinned: true,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  automaticallyImplyLeading: false,
+                  toolbarHeight: ThemeCubit.mediaQuery.size.height / 7.5,
+                  title: Container(
+                      height: ThemeCubit.mediaQuery.size.height / 5,
+                      width: double.infinity,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: StaticData()
+                            .typesList[index]
+                            .map((_type) => Center(
+                                  child: GestureDetector(
+                                    child: Card(
+                                      color: Color(0xFFE50050),
+                                      child: Container(
+                                          height: 50,
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 12),
+                                          child: CustomText(
+                                            text: _type.toUpperCase(),
+                                            color: Colors.white,
+                                          )),
                                     ),
+                                    onTap: () => context
+                                        .read<ProductsBloc>()
+                                        .add(FetchProductsByType(_type)),
                                   ),
-                                  CustomText(
-                                    text:
-                                        state.products[index].price.toString() +
-                                            ' EGP',
-                                    fontWeight: FontWeight.bold,
-                                  )
-                                ],
+                                ))
+                            .toList(),
+                      )),
+                ),
+                SliverGrid(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    if (state.products.isNotEmpty)
+                      return Card(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Card(
+                              color: Colors.white,
+                              child: ExtendedImage(
+                                image: ExtendedNetworkImageProvider(
+                                  state.products[index].image,
+                                  timeRetry: Duration(seconds: 7),
+                                ),
+                                height: ThemeCubit.mediaQuery.size.height / 3.2,
+                                width: double.infinity,
+                                enableMemoryCache: true,
+                                handleLoadingProgress: true,
+                                enableLoadState: true,
                               ),
-                            );
-                          else {
-                            return Container(
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 10, bottom: 15),
                               child: CustomText(
-                                text: 'no data',
+                                text: state.products[index].title,
+                                fontWeight: FontWeight.bold,
+                                defaultStyle: Theme.of(context)
+                                    .textTheme
+                                    .headline4
+                                    .apply(
+                                      fontFamily: 'Akaya',
+                                    )
+                                    .copyWith(
+                                        fontSize: 20,
+                                        color: context
+                                                .watch<ThemeCubit>()
+                                                .isDarkThemEnabled
+                                            ? Colors.white
+                                            : Color(0xC11A192F)),
                               ),
-                            );
-                          }
-                        } else {
-                          // ignore: missing_return
-                          return Container(
-                              color: Colors.white10,
-                              alignment: Alignment.center,
-                              child: CupertinoActivityIndicator(
-                                animating: true,
-                                radius: 25,
-                              ));
-                        }
-                      }),
-                  childCount:
-                      context.watch<ProductsBloc>().products.length ?? 0),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      ThemeCubit.mediaQuery.size.aspectRatio * 1.2),
-            ),
-          ],
-        ),
+                            ),
+                            CustomText(
+                              text: state.products[index].price.toString() +
+                                  ' EGP',
+                              fontWeight: FontWeight.bold,
+                            )
+                          ],
+                        ),
+                      );
+                    else {
+                      return Container(
+                        child: CustomText(
+                          text: 'no data',
+                        ),
+                      );
+                    }
+                  }, childCount: state.products.length ?? 0),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio:
+                          ThemeCubit.mediaQuery.size.aspectRatio * 1.1),
+                ),
+              ],
+            );
+          } else {
+            return Container(
+                color: Colors.white10,
+                alignment: Alignment.center,
+                child: CupertinoActivityIndicator(
+                  animating: true,
+                  radius: 25,
+                ));
+          }
+        }),
       ),
     );
   }
