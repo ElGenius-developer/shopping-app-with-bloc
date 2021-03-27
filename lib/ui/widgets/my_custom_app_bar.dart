@@ -9,8 +9,10 @@ import 'inner_custom_drawer.dart';
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size size;
   final Color color;
+  final Color textColor;
 
   final bool showDrawer;
+  final List<Widget> actions;
   final String title;
   final bool showTrailing;
   const MyCustomAppBar({
@@ -19,14 +21,14 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showDrawer = false,
     this.showTrailing = false,
     @required this.title,
-    this.color,
+    this.color, this.actions, this.textColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final textColor = context.watch<ThemeCubit>().isDarkThemEnabled
+    final textColor = this.textColor??(context.watch<ThemeCubit>().isDarkThemEnabled
         ? Colors.white
-        : Colors.black;
+        : Colors.black);
     return AppBar(
       systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
       elevation: 0,
@@ -47,14 +49,14 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? InnerCustomDrawer.innerDrawerKey.currentState.open()
             : Navigator.pop(context),
       ),
-      actions: showTrailing
+      actions: actions??(showTrailing
           ? [
-              IconButton(
-                icon: Icon(Icons.search, color: textColor, size: 35),
-                onPressed: () {},
-              ),
-            ]
-          : [],
+        IconButton(
+          icon: Icon(Icons.search, color: textColor, size: 35),
+          onPressed: () {},
+        ),
+      ]
+          : []),
       backgroundColor: color ?? context.read<ThemeCubit>().defaultColor,
       title: CustomText(
         fontSize: 25,

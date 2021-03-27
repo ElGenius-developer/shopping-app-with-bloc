@@ -12,10 +12,10 @@ part 'products_state.dart';
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc() : super(ProductsInitial());
   final _productsRepository = ProductsRepository();
-  List<Products> _products = <Products>[];
+ static List<Products> _products = <Products>[];
   List<Products> _allProducts = <Products>[];
 
-  List<Products> get products => _products;
+ static List<Products> get products => _products;
   List<Products> get allProducts => _allProducts;
 
   @override

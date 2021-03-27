@@ -1,3 +1,4 @@
+import 'package:bag_app/data/constants/material_data.dart';
 import 'package:bag_app/logic/blocs/products_bloc/products_bloc.dart';
 import 'package:bag_app/logic/cubits/internet/internet_cubit.dart';
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
@@ -7,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'data/constants/static_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ void main() async {
         ),
         BlocProvider<ProductsBloc>(
           create: (context) => ProductsBloc()..add(FetchAllProducts()),
-          //TODO: maybe changed later
+          //TODO: maybe changed later and make fetch all products one search opened and list removed after back
         ),
       ],
       child: MyApp(),
@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       color: Colors.white,
       title: 'Shopping App',
-      theme: StaticData().lightThemData,
-      darkTheme: StaticData().darkThemeData,
+      theme: MaterialData().lightThemData,
+      darkTheme: MaterialData().darkThemeData,
       themeMode: context.watch<ThemeCubit>().isDarkThemEnabled
           ? ThemeMode.dark
           : ThemeMode.light,

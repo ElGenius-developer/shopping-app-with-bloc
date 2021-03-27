@@ -7,7 +7,9 @@ class Products {
   String category;
   String image;
   String type;
-  double rate;
+  var rate;
+  String size;
+  String color;
   String error;
 
 
@@ -17,6 +19,8 @@ class Products {
         this.price,
         this.type,
         this.rate,
+        this.size,
+        this.color,
         this.description,
         this.category,
         this.image,
@@ -31,6 +35,8 @@ class Products {
   price = json['price'];
   oldPrice = json['oldPrice'];
   type = json['type'];
+  size=json['size']??'null';
+  color=json['color'];
   description = json['description'];
   category = json['category'];
   image = json['image']??'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png';
@@ -44,6 +50,8 @@ class Products {
     data['price'] = this.price;
     data['oldPrice'] = this.oldPrice;
     data['type'] = this.type;
+    data['size']=this.size;
+    data['color']=this.color;
     data['description'] = this.description;
     data['category'] = this.category;
     data['image'] = this.image;

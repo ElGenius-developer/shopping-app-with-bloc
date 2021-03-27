@@ -1,4 +1,4 @@
-import 'package:bag_app/data/constants/static_data.dart';
+import 'package:bag_app/data/constants/material_data.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +9,8 @@ part 'them_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
    static MediaQueryData mediaQuery;
   ThemeCubit() : super(ThemeInitial());
-    Color defaultColor = StaticData().pinkColor;
-   Color alternativeColor = StaticData().blueColor;
+    Color defaultColor = MaterialData().pinkColor;
+   Color alternativeColor = MaterialData().blueColor;
 
    // Box <bool>box ;
     bool isDarkThemEnabled=false;

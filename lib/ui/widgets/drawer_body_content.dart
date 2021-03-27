@@ -6,9 +6,10 @@ import 'custom_text.dart';
 class DrawerBodyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Material(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: Column(
+    return  Drawer(
+
+      // : Theme.of(context).scaffoldBackgroundColor
+    child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText(text: 'Change Theme',fontWeight: FontWeight.bold,fontSize: 22,

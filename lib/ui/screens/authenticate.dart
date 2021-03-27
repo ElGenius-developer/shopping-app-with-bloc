@@ -1,6 +1,6 @@
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:bag_app/ui/screens/home.dart';
-import 'package:bag_app/ui/screens/welcoming.dart';
+import 'package:bag_app/ui/screens/welcome/welcoming.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatelessWidget {
