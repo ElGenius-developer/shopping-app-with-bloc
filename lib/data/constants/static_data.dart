@@ -9,7 +9,7 @@ class StaticData {
   ];
   final categoriesList = [
     "electronics",
-    "jewelery",
+    "jewelry",
     "men clothing",
     "women clothing"
   ];
@@ -24,7 +24,7 @@ class StaticData {
       'digital camera',
       'TVs',
       'power bank',
-      'fitness technology,',
+      'fitness',
       'cable',
       'consoles',
       'video games',

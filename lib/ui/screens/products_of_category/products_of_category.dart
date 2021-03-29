@@ -1,6 +1,7 @@
 import 'package:bag_app/data/constants/static_data.dart';
 import 'package:bag_app/logic/blocs/products_bloc/products_bloc.dart';
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
+import 'package:bag_app/ui/adaptive_ui_component/responsive_widget/responsive_widget.dart';
 import 'package:bag_app/ui/router/app_arguments.dart';
 import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/internet_widget.dart';
@@ -62,123 +63,130 @@ class ProductsScreen extends StatelessWidget {
             );
           } else if (state is ProductsSuccessState) {
 
-            return CustomScrollView(
-              slivers: [
-                /******************************************************
-                 *       *[Display the product with selected type... ]*
-                 ******************************************************/
+            return ResponsiveWidget(
+              builder: (context, deviceInfo) =>  CustomScrollView(
+                slivers: [
+                  /******************************************************
+                   *       *[Display the product with selected type... ]*
+                   ******************************************************/
 
-                SliverAppBar(
-                  floating: true,
-                  // pinned: true,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  automaticallyImplyLeading: false,
-                  toolbarHeight: ThemeCubit.mediaQuery.size.height / 7.5,
-                  title: Container(
-                      height: ThemeCubit.mediaQuery.size.height / 5,
-                      width: double.infinity,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: StaticData()
-                            .typesList[index]
-                            .map((_type) => Center(
-                                  child: GestureDetector(
-                                    child: Card(
-                                      color: Color(0xFFE50050),
-                                      child: Container(
-                                          height: 50,
-                                          alignment: Alignment.center,
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 12),
-                                          child: CustomText(
-                                            text: _type.toUpperCase(),
-                                            color: Colors.white,
-                                          )),
+                  SliverAppBar(
+                    floating: true,
+                    // pinned: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    automaticallyImplyLeading: false,
+                    toolbarHeight:deviceInfo.screenHeight / 7.5,
+                    title: Container(
+                        height:deviceInfo.screenHeight  / 5,
+                        width: deviceInfo.screenWidth,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: StaticData()
+                              .typesList[index]
+                              .map((_type) => Center(
+                                    child: GestureDetector(
+                                      child: Card(
+                                        color: Color(0xFFE50050),
+                                        child: Container(
+                                            height: deviceInfo.localHeight /15,
+                                            alignment: Alignment.center,
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: deviceInfo.localHeight /60),
+                                            child: CustomText(
+                                              text: _type.toUpperCase(),
+                                              color: Colors.white,
+                                              fontSize: deviceInfo.localHeight/35,
+                                            )),
+                                      ),
+                                      onTap: () => context
+                                          .read<ProductsBloc>()
+                                      //Todo : remove this later .... or not
+                                          ..add(FetchProductsByCategory(StaticData().categoriesList[index]))
+                                          ..add(FetchProductsByType(_type.toLowerCase())),
                                     ),
-                                    onTap: () => context
-                                        .read<ProductsBloc>()
-                                    //Todo : remove this later .... or not
-                                        ..add(FetchProductsByCategory(StaticData().categoriesList[index]))
-                                        ..add(FetchProductsByType(_type.toLowerCase())),
-                                  ),
-                                ))
-                            .toList(),
-                      )),
-                ),
-                /******************************************************
-                *       *[products GridView]*                         *
-                *******************************************************/
-                SliverGrid(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    if (state.products.isNotEmpty) {
-                      return GestureDetector(
+                                  ),)
+                              .toList(),
+                        ),),
+                  ),
+                  /******************************************************
+                  *       *[products GridView]*                         *
+                  *******************************************************/
+                  SliverGrid(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      if (state.products.isNotEmpty) {
+                        return GestureDetector(
 
-                        child: Card(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Card(
-                                color: Colors.white,
-                                child: Hero(
-                                  tag: state.products[index].image,
+                          child: Card(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Card(
+                                  color: Colors.white,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal:deviceInfo.localHeight/20),
+                                    width: deviceInfo.localWidth*.42,
+                                    height: deviceInfo.localHeight/2.6,
+                                    child: Hero(
+                                      tag: state.products[index].image,
 
-                                  child: Image(
-                                    image: NetworkImage(
-                                      '${state.products[index].image}',
-                                     ),
-                                    height: ThemeCubit.mediaQuery.size.height / 3,
-                                    width: ThemeCubit.mediaQuery.size.width,
+                                      child: Image(
+                                        image: NetworkImage(
+                                          '${state.products[index].image}',
+                                         ),
+                                        height: deviceInfo.localHeight / 2.5,
+                                        width: deviceInfo.localWidth *.5,
 
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-
-                                 child: CustomText(
-                                  text: state.products[index].title,
+                                CustomText(
+                                 text: state.products[index].title,
+                                 fontWeight: FontWeight.bold,
+                                 defaultStyle: Theme.of(context)
+                                     .textTheme
+                                     .headline4
+                                     .apply(
+                                       fontFamily: 'Akaya',
+                                     )
+                                     .copyWith(
+                                         fontSize:  deviceInfo.localHeight/35,
+                                         color: context
+                                                 .watch<ThemeCubit>()
+                                                 .isDarkThemEnabled
+                                             ? Colors.white
+                                             : Color(0xC11A192F)),
+                                  ),
+                                CustomText(
+                                  text: state.products[index].price.toString() +
+                                      ' EGP',
                                   fontWeight: FontWeight.bold,
-                                  defaultStyle: Theme.of(context)
-                                      .textTheme
-                                      .headline4
-                                      .apply(
-                                        fontFamily: 'Akaya',
-                                      )
-                                      .copyWith(
-                                          fontSize: 20,
-                                          color: context
-                                                  .watch<ThemeCubit>()
-                                                  .isDarkThemEnabled
-                                              ? Colors.white
-                                              : Color(0xC11A192F)),
-                                ),
-                              ),
-                              CustomText(
-                                text: state.products[index].price.toString() +
-                                    ' EGP',
-                                fontWeight: FontWeight.bold,
-                              )
-                            ],
+                                  fontSize:  deviceInfo.localHeight/30,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/Details',arguments: AppArguments(product: state.products[index],));
-                        },
-                      );
-                    } else {
-                      return Container(
-                        child: CustomText(
-                          text: 'no data',
-                        ),
-                      );
-                    }
-                  }, childCount: state.products.length ?? 0),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio:
-                          ThemeCubit.mediaQuery.size.aspectRatio ),
-                ),
-              ],
+                          onTap: () {
+                            Navigator.pushNamed(context, '/Details',arguments: AppArguments(product: state.products[index],));
+                          },
+                        );
+                      } else {
+                        return Container(
+                          child: CustomText(
+                            text: 'no data',
+                            fontSize: deviceInfo.localHeight/55,
+                          ),
+                        );
+                      }
+                    }, childCount: state.products.length ?? 0),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            deviceInfo.mediaQuery.size.aspectRatio ),
+                  ),
+                ],
+              ),
             );
           } else {
             return Container(
