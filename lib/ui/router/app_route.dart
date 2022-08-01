@@ -13,8 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'app_arguments.dart';
 
 class AppRoute {
-  Route onGeneratedRoute(RouteSettings routeSettings) {
-    final AppArguments args = routeSettings.arguments;
+  Route? onGeneratedRoute(RouteSettings routeSettings) {
+    final AppArguments? args = routeSettings.arguments as AppArguments?;
     switch (routeSettings.name) {
       case '/':
         return CupertinoPageRoute(
@@ -26,7 +26,7 @@ class AppRoute {
         );
       case '/Details':
         return CupertinoPageRoute(
-          builder: (context) => Details(product: args.product, tag: args.tag),
+          builder: (context) => Details(product: args!.product, tag: args.tag),
         );
       case '/WishList':
         return CupertinoPageRoute(
@@ -50,7 +50,7 @@ class AppRoute {
         );
       case '/ProductsScreen':
         return CupertinoPageRoute(
-          builder: (context) => ProductsScreen(args.index),
+          builder: (context) => ProductsScreen(args!.index),
         );
       case '/AddNewProduct':
         return CupertinoPageRoute(

@@ -72,7 +72,7 @@ class ProductsScreen extends StatelessWidget {
                 ),
                 SliverGrid(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                    if (state.products.isNotEmpty)
+                    if (state.products!.isNotEmpty)
                       return Card(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +82,7 @@ class ProductsScreen extends StatelessWidget {
                               color: Colors.white,
                               child: ExtendedImage(
                                 image: ExtendedNetworkImageProvider(
-                                  state.products[index].image,
+                                  state.products![index].image!,
                                   timeRetry: Duration(seconds: 7),
                                 ),
                                 height: ThemeCubit.mediaQuery.size.height / 3.2,
@@ -95,11 +95,11 @@ class ProductsScreen extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(top: 10, bottom: 15),
                               child: CustomText(
-                                text: state.products[index].title,
+                                text: state.products![index].title,
                                 fontWeight: FontWeight.bold,
                                 defaultStyle: Theme.of(context)
                                     .textTheme
-                                    .headline4
+                                    .headline4!
                                     .apply(
                                       fontFamily: 'Akaya',
                                     )
@@ -113,7 +113,7 @@ class ProductsScreen extends StatelessWidget {
                               ),
                             ),
                             CustomText(
-                              text: state.products[index].price.toString() +
+                              text: state.products![index].price.toString() +
                                   ' EGP',
                               fontWeight: FontWeight.bold,
                             )
@@ -127,7 +127,7 @@ class ProductsScreen extends StatelessWidget {
                         ),
                       );
                     }
-                  }, childCount: state.products.length ?? 0),
+                  }, childCount: state.products!.length ),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio:

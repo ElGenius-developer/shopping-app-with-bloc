@@ -12,10 +12,10 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
 class Details extends StatelessWidget {
-  final Products product;
-  final String tag;
+  final Products? product;
+  final String? tag;
 
-  Details({Key key, @required this.product, this.tag}) : super(key: key);
+  Details({Key? key, required this.product, this.tag}) : super(key: key);
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class Details extends StatelessWidget {
               color: Colors.black,
               size: 32,
             ),
-            onPressed: () => _scaffoldKey.currentState.openDrawer(),
+            onPressed: () => _scaffoldKey.currentState!.openDrawer(),
           )
         ],
       ),
@@ -46,7 +46,7 @@ class Details extends StatelessWidget {
          alignment: Alignment.topCenter,
          children: [
            Hero(
-             tag: product.image,
+             tag: product!.image!,
              child: Container(
                padding: EdgeInsets.only(bottom: 20),
                color:  Colors.white,/*Color(0xfffafafF),*/
@@ -56,7 +56,7 @@ class Details extends StatelessWidget {
                  height: ThemeCubit.mediaQuery.size.height /1.5,
                  width: ThemeCubit.mediaQuery.size.width,
                  image: ExtendedNetworkImageProvider(
-                     product.image,
+                     product!.image!,
                      cache: true,
                      printError: true
                  ),
@@ -71,7 +71,7 @@ class Details extends StatelessWidget {
                width: double.infinity,
                height: ThemeCubit.mediaQuery.size.height / 1.7,
                decoration: BoxDecoration(
-                 color: Color(int.parse(product.color)),
+                 color: Color(int.parse(product!.color!)),
 
                  borderRadius: BorderRadius.all(
                    Radius.circular(30),
@@ -82,7 +82,7 @@ class Details extends StatelessWidget {
            ),
            Align(
              child: CustomText(
-               text: product.price+' EGP',
+               text: product!.price!+' EGP',
                color: Colors.black,
                fontSize: 25,
                fontWeight: FontWeight.bold,

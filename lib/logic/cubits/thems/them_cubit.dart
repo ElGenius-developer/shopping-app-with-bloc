@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 part 'them_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-   static MediaQueryData mediaQuery;
+   static late MediaQueryData mediaQuery;
   ThemeCubit() : super(ThemeInitial());
     Color defaultColor = MaterialData().pinkColor;
    Color alternativeColor = MaterialData().blueColor;

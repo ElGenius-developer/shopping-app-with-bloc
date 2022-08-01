@@ -7,8 +7,8 @@ class ProductsInitial extends ProductsState {}
 class ProductsLoadingState extends ProductsState {}
 
 class ProductsSuccessState extends ProductsState {
-      List<Products> products;
-  ProductsSuccessState.filtered({@required this.products});
+      List<Products>? products;
+  ProductsSuccessState.filtered({required this.products});
   ProductsSuccessState.all();
 }
 

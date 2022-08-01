@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MaterialData{
 
@@ -19,8 +20,7 @@ class MaterialData{
       buttonColor: Colors.red[800],
     ),
     appBarTheme: AppBarTheme(
-      brightness: Brightness.light,
-      color: Colors.red[900],
+      color: Colors.red[900], systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     shadowColor: Color(0xff1B222F),
 

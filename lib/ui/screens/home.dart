@@ -33,14 +33,14 @@ class Home extends StatelessWidget {
 
                       return GridView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemCount: StaticData().categoriesList.length ?? 0,
+                        itemCount: StaticData().categoriesList.length ,
                         itemBuilder: (context, index) => GestureDetector(
                             child: Card(
                               child: Container(
                                 width:
-                                deviceInfo.screenWidth*.5,
+                                deviceInfo.screenWidth!*.5,
                                 height:
-                                deviceInfo.screenHeight / 3,
+                                deviceInfo.screenHeight! / 3,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,18 +50,18 @@ class Home extends StatelessWidget {
                                         "images/${StaticData().categoriesList[index]}.jpeg",
                                       ),
                                       height:
-                                      deviceInfo.localHeight / 2.2,
+                                      deviceInfo.localHeight! / 2.2,
                                       width:
-                                      deviceInfo.localWidth *.7,
+                                      deviceInfo.localWidth! *.7,
                                       fit: BoxFit.contain,
                                     ),
-                                    SizedBox(height:deviceInfo.localHeight/50 ,),
+                                    SizedBox(height:deviceInfo.localHeight!/50 ,),
                                     CustomText(
                                       text: StaticData()
                                           .categoriesList[index]
                                           .toUpperCase()
                                           .toString(),
-                                      fontSize: deviceInfo.localHeight/50,
+                                      fontSize: deviceInfo.localHeight!/50,
                                       fontWeight: FontWeight.bold,
                                     )
                                   ],
@@ -78,7 +78,7 @@ class Home extends StatelessWidget {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio:
-                                deviceInfo.mediaQuery.size.aspectRatio * .9),
+                                deviceInfo.mediaQuery!.size.aspectRatio * .9),
                       );
                     })
         ),

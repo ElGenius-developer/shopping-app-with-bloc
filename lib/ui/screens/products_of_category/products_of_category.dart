@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsScreen extends StatelessWidget {
-  final int index;
+  final int? index;
 
   const ProductsScreen(this.index);
   @override
@@ -19,8 +19,8 @@ class ProductsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: MyCustomAppBar(
-        title: StaticData().categoriesList[index].replaceRange(0, 1,
-            StaticData().categoriesList[index].toUpperCase().substring(0, 1)),
+        title: StaticData().categoriesList[index!].replaceRange(0, 1,
+            StaticData().categoriesList[index!].toUpperCase().substring(0, 1)),
         color: Theme.of(context).scaffoldBackgroundColor,
         showTrailing: false,
         actions: [
@@ -32,7 +32,7 @@ class ProductsScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: context.watch<ThemeCubit>().isDarkThemEnabled
-                        ? Colors.grey[300]
+                        ? Colors.grey[300]!
                         : Colors.black12,
                     blurRadius: 10.0,
                   ),
@@ -75,33 +75,33 @@ class ProductsScreen extends StatelessWidget {
                     // pinned: true,
                     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     automaticallyImplyLeading: false,
-                    toolbarHeight:deviceInfo.screenHeight / 7.5,
+                    toolbarHeight:deviceInfo.screenHeight! / 7.5,
                     title: Container(
-                        height:deviceInfo.screenHeight  / 5,
+                        height:deviceInfo.screenHeight!  / 5,
                         width: deviceInfo.screenWidth,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: StaticData()
-                              .typesList[index]
+                              .typesList[index!]
                               .map((_type) => Center(
                                     child: GestureDetector(
                                       child: Card(
                                         color: Color(0xFFE50050),
                                         child: Container(
-                                            height: deviceInfo.localHeight /15,
+                                            height: deviceInfo.localHeight! /15,
                                             alignment: Alignment.center,
                                             margin: EdgeInsets.symmetric(
-                                                horizontal: deviceInfo.localHeight /60),
+                                                horizontal: deviceInfo.localHeight! /60),
                                             child: CustomText(
                                               text: _type.toUpperCase(),
                                               color: Colors.white,
-                                              fontSize: deviceInfo.localHeight/35,
+                                              fontSize: deviceInfo.localHeight!/35,
                                             )),
                                       ),
                                       onTap: () => context
                                           .read<ProductsBloc>()
                                       //Todo : remove this later .... or not
-                                          ..add(FetchProductsByCategory(StaticData().categoriesList[index]))
+                                          ..add(FetchProductsByCategory(StaticData().categoriesList[index!]))
                                           ..add(FetchProductsByType(_type.toLowerCase())),
                                     ),
                                   ),)
@@ -113,7 +113,7 @@ class ProductsScreen extends StatelessWidget {
                   *******************************************************/
                   SliverGrid(
                     delegate: SliverChildBuilderDelegate((context, index) {
-                      if (state.products.isNotEmpty) {
+                      if (state.products!.isNotEmpty) {
                         return GestureDetector(
 
                           child: Card(
@@ -124,34 +124,34 @@ class ProductsScreen extends StatelessWidget {
                                 Card(
                                   color: Colors.white,
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal:deviceInfo.localHeight/20),
-                                    width: deviceInfo.localWidth*.42,
-                                    height: deviceInfo.localHeight/2.6,
+                                    padding: EdgeInsets.symmetric(horizontal:deviceInfo.localHeight!/20),
+                                    width: deviceInfo.localWidth!*.42,
+                                    height: deviceInfo.localHeight!/2.6,
                                     child: Hero(
-                                      tag: state.products[index].image,
+                                      tag: state.products![index].image!,
 
                                       child: Image(
                                         image: NetworkImage(
-                                          '${state.products[index].image}',
+                                          '${state.products![index].image}',
                                          ),
-                                        height: deviceInfo.localHeight / 2.5,
-                                        width: deviceInfo.localWidth *.5,
+                                        height: deviceInfo.localHeight! / 2.5,
+                                        width: deviceInfo.localWidth! *.5,
 
                                       ),
                                     ),
                                   ),
                                 ),
                                 CustomText(
-                                 text: state.products[index].title,
+                                 text: state.products![index].title,
                                  fontWeight: FontWeight.bold,
                                  defaultStyle: Theme.of(context)
                                      .textTheme
-                                     .headline4
+                                     .headline4!
                                      .apply(
                                        fontFamily: 'Akaya',
                                      )
                                      .copyWith(
-                                         fontSize:  deviceInfo.localHeight/35,
+                                         fontSize:  deviceInfo.localHeight!/35,
                                          color: context
                                                  .watch<ThemeCubit>()
                                                  .isDarkThemEnabled
@@ -159,31 +159,31 @@ class ProductsScreen extends StatelessWidget {
                                              : Color(0xC11A192F)),
                                   ),
                                 CustomText(
-                                  text: state.products[index].price.toString() +
+                                  text: state.products![index].price.toString() +
                                       ' EGP',
                                   fontWeight: FontWeight.bold,
-                                  fontSize:  deviceInfo.localHeight/30,
+                                  fontSize:  deviceInfo.localHeight!/30,
                                 )
                               ],
                             ),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, '/Details',arguments: AppArguments(product: state.products[index],));
+                            Navigator.pushNamed(context, '/Details',arguments: AppArguments(product: state.products![index],));
                           },
                         );
                       } else {
                         return Container(
                           child: CustomText(
                             text: 'no data',
-                            fontSize: deviceInfo.localHeight/55,
+                            fontSize: deviceInfo.localHeight!/55,
                           ),
                         );
                       }
-                    }, childCount: state.products.length ?? 0),
+                    }, childCount: state.products!.length ),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio:
-                            deviceInfo.mediaQuery.size.aspectRatio ),
+                            deviceInfo.mediaQuery!.size.aspectRatio ),
                   ),
                 ],
               ),

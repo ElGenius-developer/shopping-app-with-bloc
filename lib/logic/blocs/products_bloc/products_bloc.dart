@@ -30,19 +30,19 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     }
     else  if (event is FetchProductsByCategory) {
         _products = await _productsRepository
-            .fetchProductsByCategory(event.categoryName);
+            .fetchProductsByCategory(event.categoryName!);
         final firstType = StaticData()
-            .typesList[StaticData().categoriesList.indexOf(event.categoryName)]
+            .typesList[StaticData().categoriesList.indexOf(event.categoryName!)]
             .first;
         final firstTypeProductList = _products
-            .where((element) => element.type.toLowerCase().contains(firstType))
+            .where((element) => element.type!.toLowerCase().contains(firstType))
             .toList();
 
         yield ProductsSuccessState.filtered(products: firstTypeProductList);
       }
     else if (event is FetchProductsByType) {
      final newList=_products
-         .where((element) => element.type.toLowerCase().contains(event.type))
+         .where((element) => element.type!.toLowerCase().contains(event.type!))
          .toList();
         yield ProductsSuccessState.filtered(products: newList);
       }

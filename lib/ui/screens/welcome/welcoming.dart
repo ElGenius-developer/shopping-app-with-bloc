@@ -3,9 +3,10 @@ import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/inner_custom_drawer.dart';
 import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
 import 'package:bag_app/ui/widgets/sign_button.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+
 
 class Welcoming extends StatelessWidget {
   @override

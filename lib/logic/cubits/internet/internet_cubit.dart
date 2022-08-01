@@ -11,14 +11,15 @@ part 'internet_state.dart';
 
 class InternetCubit extends Cubit<InternetState>  {
   final Connectivity connectivity;
-  StreamSubscription connectivityStreamSubscription;
+  late StreamSubscription connectivityStreamSubscription;
 
-  InternetCubit({@required this.connectivity}) : super(InternetLoading()) {
+  InternetCubit({required this.connectivity}) : super(InternetLoading()) {
     monitorInternetConnection();
   }
   StreamSubscription <ConnectivityResult>monitorInternetConnection(){
 
     return connectivityStreamSubscription= connectivity.onConnectivityChanged.listen((connectionResult) {
+
       switch(connectionResult) {
         case ConnectivityResult.wifi:
           emitConnectedState(ConnectionType.wifi);
@@ -28,6 +29,12 @@ class InternetCubit extends Cubit<InternetState>  {
           break;
         case ConnectivityResult.none:
           emitDisconnected();
+          break;
+        case ConnectivityResult.bluetooth:
+          // TODO: Handle this case.
+          break;
+        case ConnectivityResult.ethernet:
+          // TODO: Handle this case.
           break;
       }
     });

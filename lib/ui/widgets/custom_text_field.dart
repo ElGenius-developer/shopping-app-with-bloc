@@ -3,15 +3,15 @@ import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String type;
+  final String? type;
   final Color color;
-  final IconData icon;
-  final bool isPassword;
-  final double height;
-  final double width;
-  final int maxLines;
-  final TextEditingController controller;
-  const CustomTextField({Key key, @required this.type, @required this.color, this.icon, this.isPassword, this.controller, this.height, this.width, this.maxLines, })
+  final IconData? icon;
+  final bool? isPassword;
+  final double? height;
+  final double? width;
+  final int? maxLines;
+  final TextEditingController? controller;
+  const CustomTextField({Key? key, required this.type, required this.color, this.icon, this.isPassword, this.controller, this.height, this.width, this.maxLines, })
       : super(key: key);
   @override
   Widget build(BuildContext context) {

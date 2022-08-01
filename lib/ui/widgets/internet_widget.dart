@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InternetWidget extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
-  const InternetWidget({Key key, this.child}) : super(key: key);
+  const InternetWidget({Key? key, this.child}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return kIsWeb?child: BlocBuilder<InternetCubit,InternetState>(builder: (context, state) {
+    return kIsWeb?child!: BlocBuilder<InternetCubit,InternetState>(builder: (context, state) {
        if(state is InternetLoading){
       return Center(child: CupertinoActivityIndicator(),);
       }
@@ -19,7 +19,7 @@ class InternetWidget extends StatelessWidget {
         return Center(child: CustomText(text: 'No internet',),);
       }
       else{
-        return child;
+        return child!;
       }
     },);
   }

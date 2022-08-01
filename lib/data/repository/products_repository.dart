@@ -10,7 +10,7 @@ class ProductsRepository {
       QuerySnapshot querySnapshot =
           await _fireStore.doc('categories').collection('all products').get();
       querySnapshot.docs.forEach((element) {
-        _allProducts.add(Products.fromJson(element.data()));
+        _allProducts.add(Products.fromJson(element.data() as Map<String, dynamic>));
       });
     } catch (error, stackTrace) {
       print('Error $error occurs in : ==> $stackTrace');
@@ -30,7 +30,7 @@ class ProductsRepository {
               categoryName) /*.where('type' ,isEqualTo: 'Sweatshirt' )add this to sort internal data */
           .get();
       querySnapshot.docs.forEach((_product) {
-        _products.add(Products.fromJson(_product.data()));
+        _products.add(Products.fromJson(_product.data() as Map<String, dynamic>));
       });
     } catch (e, stackTrace) {
       print('Error $e occurs in : ==> $stackTrace');
@@ -40,7 +40,7 @@ class ProductsRepository {
   }
   Future <bool> addProductToFirebase(Products product) async{
    try{
-     _fireStore.doc('categories').collection(product.category).add(product.toJson());
+     _fireStore.doc('categories').collection(product.category!).add(product.toJson());
      _fireStore.doc('categories').collection('all products').add(product.toJson());
      return true;
    }catch(error, stackTrace){
@@ -50,7 +50,7 @@ class ProductsRepository {
 
   }
   Future editProduct(
-      int id,
+      int? id,
       String categoryName,
       Products product
       ) async {

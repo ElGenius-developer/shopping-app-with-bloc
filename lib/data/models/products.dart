@@ -1,16 +1,16 @@
 class Products {
-  int id;
-  String title;
-  String price;
-  String oldPrice;
-  String description;
-  String category;
-  String image;
-  String type;
+  int? id;
+  String? title;
+  String? price;
+  String? oldPrice;
+  String? description;
+  String? category;
+  String? image;
+  String? type;
   var rate;
-  String size;
-  String color;
-  String error;
+  String? size;
+  String? color;
+  String? error;
 
 
   Products(

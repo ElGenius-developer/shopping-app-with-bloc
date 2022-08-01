@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignButton extends StatelessWidget {
-  final String namedRoute;
+  final String? namedRoute;
   final String text;
-  final Function function;
-  SignButton({Key key, this.namedRoute, @required this.text, this.function})
+  final Function? function;
+  SignButton({Key? key, this.namedRoute, required this.text, this.function})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class SignButton extends StatelessWidget {
           function ??
               Navigator.of(
                 context,
-              ).pushNamed(namedRoute);
+              ).pushNamed(namedRoute!);
         },
       ),
     );

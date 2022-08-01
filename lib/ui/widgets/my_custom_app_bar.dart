@@ -7,20 +7,20 @@ import 'custom_text.dart';
 import 'inner_custom_drawer.dart';
 
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Size size;
-  final Color color;
-  final Color textColor;
+  final Size? size;
+  final Color? color;
+  final Color? textColor;
 
   final bool showDrawer;
-  final List<Widget> actions;
+  final List<Widget>? actions;
   final String title;
   final bool showTrailing;
   const MyCustomAppBar({
-    Key key,
+    Key? key,
     this.size,
     this.showDrawer = false,
     this.showTrailing = false,
-    @required this.title,
+    required this.title,
     this.color, this.actions, this.textColor,
   }) : super(key: key);
 
@@ -46,7 +46,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 size: 35,
               ),
         onPressed: () => showDrawer
-            ? InnerCustomDrawer.innerDrawerKey.currentState.open()
+            ? InnerCustomDrawer.innerDrawerKey.currentState!.open()
             : Navigator.pop(context),
       ),
       actions: actions??(showTrailing
@@ -62,7 +62,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         fontSize: 25,
         text: title,
         fontWeight: FontWeight.bold,
-        color: textColor ?? Colors.white,
+        color: textColor
       ),
       centerTitle: true,
     );

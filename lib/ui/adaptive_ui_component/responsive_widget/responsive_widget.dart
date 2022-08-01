@@ -3,9 +3,9 @@ import 'package:bag_app/ui/adaptive_ui_component/functions/get_device_type.dart'
 import 'package:flutter/material.dart';
 
 class ResponsiveWidget extends StatelessWidget {
-  final Widget Function(BuildContext context, DeviceInfo deviceInfo) builder;
+  final Widget Function(BuildContext context, DeviceInfo deviceInfo)? builder;
 
-  const ResponsiveWidget({Key key, this.builder}) : super(key: key);
+  const ResponsiveWidget({Key? key, this.builder}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -28,7 +28,7 @@ class ResponsiveWidget extends StatelessWidget {
           return Container(
               height: mediaQuery.size.height,
               width: mediaQuery.size.width,
-              child: builder(context, deviceInfo));
+              child: builder!(context, deviceInfo));
         },
       ),
     );

@@ -6,12 +6,12 @@ abstract class ProductsEvent {}
 class FetchAllProducts extends ProductsEvent {}
 
 class FetchProductsByCategory extends ProductsEvent {
-  final String categoryName;
+  final String? categoryName;
 
   FetchProductsByCategory(this.categoryName);
 }
 class FetchProductsByType extends ProductsEvent {
-  final String type;
+  final String? type;
   FetchProductsByType(this.type);
 }
 

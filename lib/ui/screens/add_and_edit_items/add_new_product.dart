@@ -26,29 +26,29 @@ class AddNewProduct extends StatelessWidget {
     TextEditingController(),
     TextEditingController(),
   ];
-  static String categoryDropdownValue = 'electronics';
-  static String typeDropdownValue;
-  final Products editedProduct;
+  static String? categoryDropdownValue = 'electronics';
+  static String? typeDropdownValue;
+  final Products? editedProduct;
 
-  AddNewProduct({Key key, this.editedProduct}) : super(key: key);
+  AddNewProduct({Key? key, this.editedProduct}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     typeDropdownValue = StaticData()
-        .typesList[StaticData().categoriesList.indexOf(categoryDropdownValue)]
+        .typesList[StaticData().categoriesList.indexOf(categoryDropdownValue!)]
         .first;
     if (editedProduct != null) {
-      controllers[0].text = editedProduct.title;
-      controllers[1].text = editedProduct.id.toString();
-      controllers[2].text = editedProduct.image;
-      controllers[3].text = editedProduct.price;
-      controllers[4].text = editedProduct.oldPrice;
-      controllers[5].text = editedProduct.rate.toString();
-      controllers[6].text = editedProduct.color;
-      controllers[7].text = editedProduct.size;
-      controllers[8].text = editedProduct.description;
-      categoryDropdownValue = editedProduct.category;
-      typeDropdownValue = editedProduct.type;
+      controllers[0].text = editedProduct!.title!;
+      controllers[1].text = editedProduct!.id.toString();
+      controllers[2].text = editedProduct!.image!;
+      controllers[3].text = editedProduct!.price!;
+      controllers[4].text = editedProduct!.oldPrice!;
+      controllers[5].text = editedProduct!.rate.toString();
+      controllers[6].text = editedProduct!.color!;
+      controllers[7].text = editedProduct!.size!;
+      controllers[8].text = editedProduct!.description!;
+      categoryDropdownValue = editedProduct!.category;
+      typeDropdownValue = editedProduct!.type;
     }
 
     return Scaffold(
@@ -66,10 +66,10 @@ class AddNewProduct extends StatelessWidget {
 
               return    SingleChildScrollView(
                 child: Container(
-                    width: deviceInfo.screenWidth *.4,
+                    width: deviceInfo.screenWidth! *.4,
                     height: deviceInfo.screenHeight ,
                     padding: EdgeInsets.symmetric(
-                      horizontal:deviceInfo.localWidth/22,
+                      horizontal:deviceInfo.localWidth!/22,
 
                     ),
                     child: Column(
@@ -82,7 +82,7 @@ class AddNewProduct extends StatelessWidget {
 
                       Container(
                        width: deviceInfo.localWidth,
-                      height: deviceInfo.localHeight / 15,
+                      height: deviceInfo.localHeight! / 15,
                       child: StatefulBuilder(
                         builder: (context, setState) {
                           return Row(
@@ -96,13 +96,13 @@ class AddNewProduct extends StatelessWidget {
                                     typeDropdownValue = StaticData()
                                         .typesList[StaticData()
                                         .categoriesList
-                                        .indexOf(categoryDropdownValue)]
+                                        .indexOf(categoryDropdownValue!)]
                                         .first;
                                   });
                                 },
                                 icon: Icon(
                                   CupertinoIcons.arrow_down,
-                                  size: deviceInfo.localWidth/67,
+                                  size: deviceInfo.localWidth!/67,
                                   color: Colors.red.shade700,
                                 ),
                                 items: StaticData()
@@ -131,13 +131,13 @@ class AddNewProduct extends StatelessWidget {
                                 icon: Icon(
                                   CupertinoIcons.arrow_down,
                                   color: Colors.red.shade700,
-                                  size: deviceInfo.localWidth/67,
+                                  size: deviceInfo.localWidth!/67,
 
                                 ),
                                 items: StaticData()
                                     .typesList[StaticData()
                                     .categoriesList
-                                    .indexOf(categoryDropdownValue)]
+                                    .indexOf(categoryDropdownValue!)]
                                     .map<DropdownMenuItem<String>>(
                                         (categoriesListItem) =>
                                         DropdownMenuItem<String>(
@@ -205,17 +205,17 @@ class AddNewProduct extends StatelessWidget {
                           color: Colors.pink,
                           controller: controllers[8],
                           width: deviceInfo.localWidth  ,
-                          height: deviceInfo.localHeight / 6,
+                          height: deviceInfo.localHeight! / 6,
                           maxLines: 15,
                         ),
                         Container(
-                          margin: EdgeInsets.all(deviceInfo.localWidth*.01),
-                          height: deviceInfo.localHeight*.08,
-                          width: deviceInfo.localWidth*.55,
+                          margin: EdgeInsets.all(deviceInfo.localWidth!*.01),
+                          height: deviceInfo.localHeight!*.08,
+                          width: deviceInfo.localWidth!*.55,
                           child: CupertinoButton(
                             color: ThemeCubit().alternativeColor,
                             child: CustomText(
-                              fontSize: deviceInfo.localHeight/50,
+                              fontSize: deviceInfo.localHeight!/50,
                               text: (editedProduct == null)
                                   ? 'Add Product'
                                   : 'Edit product',
@@ -237,13 +237,13 @@ class AddNewProduct extends StatelessWidget {
                                   ? controllers[7].text.trim()
                                   : null;
                               product.description = controllers[8].text.trim();
-                              product.category = categoryDropdownValue.trim();
-                              product.type = typeDropdownValue.trim();
+                              product.category = categoryDropdownValue!.trim();
+                              product.type = typeDropdownValue!.trim();
                               if (editedProduct == null)
                                 await repository.addProductToFirebase(product);
                               else {
-                                await repository.editProduct(editedProduct.id,
-                                    editedProduct.category, product);
+                                await repository.editProduct(editedProduct!.id,
+                                    editedProduct!.category!, product);
 
 
                                  context.read<ProductsBloc>()..add(FetchProductsByCategory(categoryDropdownValue),)..add(FetchProductsByType(typeDropdownValue));
