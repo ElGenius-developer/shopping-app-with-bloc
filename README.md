@@ -1,7 +1,14 @@
 # shopping app
 
 A new Flutter application.
-![](https://github.com/ElGenius-developer/News-App/blob/main/ScreenShots/1.png),![](https://github.com/ElGenius-developer/News-App/blob/main/ScreenShots/2.png)
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/1.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/2.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/3.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/4.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/5.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/6.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/7.jpg),
+![](https://github.com/ElGenius-developer/shopping-app-with-bloc/blob/main/screenshots/8.jpg)
 ## Getting Started
 
 This project is a starting point for a Flutter application.
