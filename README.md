@@ -1,4 +1,4 @@
-# bag_app
+# shopping app
 
 A new Flutter application.
 
