@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
 #************************************************#
   cupertino_icons: ^1.0.2
-  flutter_inner_drawer: ^1.0.0+1
   flutter_launcher_icons:
   connectivity_plus:
   card_swiper: ^2.0.4
@@ -24,7 +23,11 @@ dependencies:
   firebase_auth:
   flutter_svg:
   cloud_firestore:
-  extended_image: ^3.0.0
+  extended_image: ^6.2.1
+  inner_drawer:
+    git:
+      url: https://github.com/ElGenius-developer/innerdrawer
+  flutter_zoom_drawer:
 
 
 #************************************************#

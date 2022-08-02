@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 class MaterialData{
 
   //custom category
+  static final  kPrimaryColor = Color(0xF8CD265A);
   final Color pinkColor = Color(0xF8CD265A);
   final Color blueColor = Color(0xE90974C8);
 

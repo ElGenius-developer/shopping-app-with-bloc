@@ -124,8 +124,8 @@ class ProductsScreen extends StatelessWidget {
                                 Card(
                                   color: Colors.white,
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal:deviceInfo.localHeight!/20),
-                                    width: deviceInfo.localWidth!*.42,
+                                    padding: EdgeInsets.symmetric(horizontal:5,vertical: 4),
+                                    width: deviceInfo.localWidth!,
                                     height: deviceInfo.localHeight!/2.6,
                                     child: Hero(
                                       tag: state.products![index].image!,
@@ -134,8 +134,9 @@ class ProductsScreen extends StatelessWidget {
                                         image: NetworkImage(
                                           '${state.products![index].image}',
                                          ),
-                                        height: deviceInfo.localHeight! / 2.5,
-                                        width: deviceInfo.localWidth! *.5,
+                                        fit: BoxFit.contain,
+                                        height: deviceInfo.localHeight! / 2,
+                                        width: deviceInfo.localWidth! ,
 
                                       ),
                                     ),

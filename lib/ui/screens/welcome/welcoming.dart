@@ -4,6 +4,7 @@ import 'package:bag_app/ui/widgets/inner_custom_drawer.dart';
 import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
 import 'package:bag_app/ui/widgets/sign_button.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 class Welcoming extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InnerCustomDrawer(
+      return MyInnerDrawer(
       mainScreen: Scaffold(
         appBar: MyCustomAppBar(
           showDrawer: true,
@@ -39,7 +40,7 @@ class Welcoming extends StatelessWidget {
                   Container(
                     height: constraints.maxHeight * .45,
                     width: constraints.maxWidth,
-                    child: Image(
+                    child: ExtendedImage(
                       image: AssetImage(
                         'images/image.png',
                       ),

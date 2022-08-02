@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class Welcoming extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InnerCustomDrawer(
+    return MyInnerDrawer(
       mainScreen: Scaffold(
         appBar: MyCustomAppBar(
           showDrawer: true,

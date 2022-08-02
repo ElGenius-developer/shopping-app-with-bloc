@@ -1,15 +1,14 @@
 
 import 'package:bag_app/ui/screens/add_and_edit_items/add_new_product.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bag_app/data/constants/material_data.dart';
 import 'package:bag_app/data/models/products.dart';
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
  import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/drawer_body_content.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
+ import 'package:flutter/material.dart';
 
 class Details extends StatelessWidget {
   final Products? product;

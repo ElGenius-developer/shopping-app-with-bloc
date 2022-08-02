@@ -7,7 +7,6 @@ import 'package:bag_app/ui/widgets/custom_text.dart';
 import 'package:bag_app/ui/widgets/inner_custom_drawer.dart';
 import 'package:bag_app/ui/widgets/internet_widget.dart';
 import 'package:bag_app/ui/widgets/my_custom_app_bar.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,8 @@ import 'add_and_edit_items/add_new_product.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return InnerCustomDrawer(
+
+    return MyInnerDrawer(
       mainScreen: Scaffold(
         appBar: MyCustomAppBar(
           title: 'Categories',
@@ -45,7 +45,7 @@ class Home extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    ExtendedImage(
+                                    Image(
                                       image: AssetImage(
                                         "images/${StaticData().categoriesList[index]}.jpeg",
                                       ),
@@ -53,7 +53,7 @@ class Home extends StatelessWidget {
                                       deviceInfo.localHeight! / 2.2,
                                       width:
                                       deviceInfo.localWidth! *.7,
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.cover,
                                     ),
                                     SizedBox(height:deviceInfo.localHeight!/50 ,),
                                     CustomText(

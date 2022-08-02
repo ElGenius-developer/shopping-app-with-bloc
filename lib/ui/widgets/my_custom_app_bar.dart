@@ -1,6 +1,7 @@
 import 'package:bag_app/logic/cubits/thems/them_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'custom_text.dart';
@@ -30,7 +31,10 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ? Colors.white
         : Colors.black);
     return AppBar(
-      systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        statusBarColor: Theme.of(context).scaffoldBackgroundColor
+      ),
       elevation: 0,
       automaticallyImplyLeading: false,
       leading: IconButton(
@@ -45,9 +49,12 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 color: textColor,
                 size: 35,
               ),
-        onPressed: () => showDrawer
-            ? InnerCustomDrawer.innerDrawerKey.currentState!.open()
-            : Navigator.pop(context),
+        onPressed: () {
+
+          showDrawer
+            ?  MyInnerDrawer.controller.toggle!()
+            : Navigator.pop(context);
+        },
       ),
       actions: actions??(showTrailing
           ? [
