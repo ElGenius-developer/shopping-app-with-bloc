@@ -1,7 +1,7 @@
-# bag_app
+# shopping app
 
 A new Flutter application.
-
+![](https://github.com/ElGenius-developer/News-App/blob/main/ScreenShots/1.png),![](https://github.com/ElGenius-developer/News-App/blob/main/ScreenShots/2.png)
 ## Getting Started
 
 This project is a starting point for a Flutter application.
